@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ayoai-lambda-common"
+version = "1.0.0"
+description = "Shared utilities for AyoAI Python Lambda functions"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "boto3>=1.26.0",
+    "pytest>=7.0",
+    "moto[dynamodb,lambda]>=4.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
