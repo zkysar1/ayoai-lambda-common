@@ -111,6 +111,10 @@ def check_rate_limit(api_key, endpoint_type):
         raw_body = check_response['Payload'].read().decode('utf-8')
         body_data = json.loads(raw_body)
 
+        # ApiUsageTracker may wrap response in {"body": "{\"allowed\": true, ...}"}
+        if 'body' in body_data and isinstance(body_data['body'], str):
+            body_data = json.loads(body_data['body'])
+
         # Fail-closed: default to denied
         if not body_data.get('allowed', False):
             retry_after = body_data.get('retryAfter', 60)
