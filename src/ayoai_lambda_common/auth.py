@@ -6,7 +6,7 @@ import logging
 import boto3
 from boto3.dynamodb.conditions import Key
 
-from .validators import SAFE_KEY_PATTERN
+from .validators import SAFE_KEY_PATTERN, SAFE_API_KEY_PATTERN
 from .error_handling import api_error_response, report_error
 
 logger = logging.getLogger(__name__)
@@ -35,6 +35,10 @@ def validate_api_key(api_key):
     if not api_key:
         logger.warning("No API key provided")
         return False, None, api_error_response(401, "API key required")
+
+    if not SAFE_API_KEY_PATTERN.match(api_key):
+        logger.warning("API key format invalid: [key-redacted]")
+        return False, None, api_error_response(401, "Invalid API key")
 
     try:
         response = _world_builders_table.query(

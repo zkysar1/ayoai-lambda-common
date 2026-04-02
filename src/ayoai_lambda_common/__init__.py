@@ -10,4 +10,4 @@
 #   from ayoai_lambda_common.serialization import DecimalEncoder, parse_event
 #   from ayoai_lambda_common.validators import SAFE_KEY_PATTERN, SAFE_API_KEY_PATTERN
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
